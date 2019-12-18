@@ -1,6 +1,6 @@
 typedef int Rank;
 #define DEFAULT_CAPACITY 3
-
+#include <cstdlib>
 template <typename T> class Vector {
 protected:
     Rank _size; int _capacity; T* _elem;
@@ -58,3 +58,61 @@ public:
 
 
 };
+template <typename T> void swap(T &a, T &b) {
+    T temp = a;
+    a = b;
+    b = tmp;
+}
+//置乱算法
+template <typename T> void permute(Vector <T> V) {
+    for(int i = V._size; i > 0; i --) {
+        swap(V[i-1], V[rand()%i]);
+    }
+}
+
+template <typename T>void Vector<T> :: copyFrom (T const* A, Rank lo, Rank hi) {
+    _elem = new T[_capacity = (hi -lo) * 2];
+    _size = 0;
+    while(lo < hi) {
+        _elem[_size ++] = A[lo ++];
+    }
+}
+
+//重载赋值运算符
+template <typename T> Vector<T>& Vector<T>::operator= (Vector const & V) {
+    if(_elem) delete _elem[];
+    copyFrom(V._elem, 0, _size);
+    return this;
+}
+
+//扩容算法的实现
+template <typename T> void Vector<T>::expand() {
+    if (_size < _capacity) return;
+    if (_capacity < DEFAULT_CAPACITY) _capacity = DEFAULT_CAPACITY;
+
+    T* oldElem = _elem;
+    _elem = new T[_capacity <<= 1];
+    for (int i = 0; i < _size; i ++) {
+        _elem[i] = oldElem[i];
+    }
+    delete [] oldElem;
+    
+    
+}
+//向量内部功能shrink()
+template <typename T> void Vector<T> :: shrink() {
+    if (_capacity < DEFAULT_CAPACITY<<1) return;
+    if(_capacity < _size<<2) return;
+    T* oldElem = _elem;
+    _elem = new T[_capacity >>= 1]
+    for(int i = 0; i < _size; i ++) {
+        _elem[i] = oldElem[i];
+    }
+    delete[] oldElem;
+}
+
+//重载向量操作符[]
+template <typename T> T& Vector<T> :: operator[] (Rank r) const {
+    return _elem[r];
+}
+
