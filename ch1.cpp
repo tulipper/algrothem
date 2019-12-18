@@ -32,6 +32,26 @@ int countOnes(unsigned int n) {
     }
     return count;
 }
+
+
+/*
+ *数组求和的迭代版本
+ * */
+// int sum(int A[], int n) {
+//     if (n == 0) return 0;
+//     return sum(A, n-1) + A[n-1];
+// }
+
+
+/*
+ *数组求和的迭代版本
+ * */
+int sum(int A[], int n) {
+    int tmp = 0;
+    while (n > 0) 
+        tmp += A[--n];
+    return tmp;
+}
 /*
  * 数组倒置的线性递归版，复杂度O(n)
  * */
@@ -41,8 +61,15 @@ void reverse(int *A, int lo, int hi) {
         reverse(A, lo+1, hi-1);
     }
 }
+/* 
+ *数组倒置的迭代版本
+ * */
 
-
+// void reverse (int *A, int lo, int hi) {
+//     while (lo < hi) {
+//         swap(A[lo++], A[hi++]);
+//     }
+// }
 /* 
  *幂函数的线性递归版 复杂度O(logn) 和n的位数乘线性关系
  * */
@@ -54,7 +81,8 @@ int power2(int n) {
 int main() {
     int test[7] = {2,5,1,7,6,3,4};
     bubblesortaA(test, 7);
-    for (auto i : test) cout << power2(i) <<" ";
+    for (auto i : test) cout << i <<" ";
+    cout << "sum:" << sum(test, 7); 
     cout << endl;
     
 }
